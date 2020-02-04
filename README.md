@@ -30,10 +30,10 @@ Versucht mal zu erraten was das tut.
 
 ```Java
 if (true)
-	if (false)
-		foo();
+    if (false)
+        foo();
 else
-	bar();
+    bar();
 ```
 
 Natürlich gehört das else zum zweiten if, sieht man doch.
@@ -44,7 +44,7 @@ Natürlich gehört das else zum zweiten if, sieht man doch.
 class Foo{
 
 static Foo Foo(){
-return new Foo();
+    return new Foo();
 }
 }
 ```
