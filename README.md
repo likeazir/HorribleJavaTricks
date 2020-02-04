@@ -72,4 +72,38 @@ public void finish(Flightrecorder fl, BeaconConnection cn, Beacon cur, Beacon de
 
 ```
 
-Natürlich wird `fl.recordArrival()` immer aufgerufen. Lässt sich auf beliebige Kommentare übertragen. Besonders tödlich im Zusammenhang mit dem Schließen von Netzwerkverbindungen oder Multithreading.
+Natürlich wird `fl.recordArrival(dest)` immer aufgerufen. Lässt sich auf beliebige Kommentare übertragen. Besonders tödlich im Zusammenhang mit dem Schließen von Netzwerkverbindungen oder Multithreading.
+
+#### 8) Improvise. Adapt. Overcome
+
+Da es bekanntlich keine "echten" globale Variablen in Java gibt, kann man static abusen. Am besten alles static setzen, so braucht man keine Instanzen der Objekte erstellen. Diese komische Objektorientierung sorgt sowieso nur für Verwirrung.
+
+Sneaky Bonus: `.interrupt()` überschreiben und `static boolean isInterrupted` als Flag einführen.
+
+#### 9) [You spin me right round baby right round](https://www.youtube.com/watch?v=PGNiXGX2nLU&feature=youtu.be&t=61)
+
+```Java
+// Wait until the resource is free
+boolean stop = isResourceFree();
+// if-Block using stop as condition
+while(!stop) {
+}
+```
+
+Diese famose Konstruktion wird Spin-Lock genannt und ist eine Form von busy-waiting.
+Genauso wie bei dem verlinkten Song handelt es sich hierbei um eine Verschwendung von kostbaren Ressourcen und CPU-Zeit.
+
+#### 10) Try this one simple trick to fix your Deadlocks
+
+```Java
+class MagicThread extends Thread {
+    @Override
+    public void start() {
+        //write your code here
+    }
+}
+```
+Im obigen Beispiel für einen `MagicThread` wurde die Methode `.start()` aus `Thread` überschrieben. Wenn nur `MagicThreads` anstelle von `Threads` verwendet werden, kann trivialerweise kein Deadlock entstehen* Der Beweis ist dem Leser überlassen. Als Lektüre hierfür bietet sich der [Sourcecode einer beliebigen JVM an]
+(https://hg.openjdk.java.net/jdk/jdk13/file/0368f3a073a9/src/java.base/share/classes/java/lang/Thread.java#l781).
+
+<sup><sup>*(Ein Nachteil ist lediglich die sequentiellen Ausführung.)</sup></sup>
