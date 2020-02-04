@@ -103,7 +103,7 @@ class MagicThread extends Thread {
     }
 }
 ```
-Im obigen Beispiel für einen `MagicThread` wurde die Methode `.start()` aus `Thread` überschrieben. Wenn nur `MagicThreads` anstelle von `Threads` verwendet werden, kann trivialerweise kein Deadlock entstehen* Der Beweis ist dem Leser überlassen. Als Lektüre hierfür bietet sich der [Sourcecode einer beliebigen JVM an]
+Im obigen Beispiel für einen `MagicThread` wurde die Methode `.start()` aus `Thread` überschrieben. Wenn `Thread` nur wie im gezeigten `MagicThread` verwendet wird, kann trivialerweise kein Deadlock entstehen* Der Beweis ist dem Leser überlassen. Als Lektüre hierfür bietet sich der [Sourcecode einer beliebigen JVM an]
 (https://hg.openjdk.java.net/jdk/jdk13/file/0368f3a073a9/src/java.base/share/classes/java/lang/Thread.java#l781).
 
 <sup><sup>*(Ein Nachteil ist lediglich die sequentiellen Ausführung.)</sup></sup>
