@@ -87,6 +87,7 @@ Sneaky Bonus: `.interrupt()` überschreiben und `static boolean isInterrupted` a
 boolean stop = isResourceFree();
 // if-Block using stop as condition
 while(!stop) {
+    stop = isResourceFree();
 }
 ```
 
