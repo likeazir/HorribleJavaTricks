@@ -65,7 +65,7 @@ Was soll ich dazu sagen?
 public void finish(Flightrecorder fl, BeaconConnection cn, Beacon cur, Beacon dest){
     /*if we came through a wormhole arrival and departure already have been 
     recorded, so we must not do that again*/
-    if (!cn.type() == ConnectionType.WORMHOLE
+    if (!cn.type() == ConnectionType.WORMHOLE)
     	fl.recordDeparture(cur);
     	fl.recordArrival(dest);
 }
