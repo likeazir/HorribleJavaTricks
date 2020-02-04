@@ -7,7 +7,7 @@ Intro: Diese Code Beispiele sind frei von mir erfunden. Wenn ihr einen dieser Fe
 ```Java
 int [][] foo;
 int foo [][];
-int [] arr [];
+int [] foo [];
 ```
 
 Die Deklarationen sind äquivalent.
