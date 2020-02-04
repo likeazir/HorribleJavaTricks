@@ -1,6 +1,6 @@
 ## Horrible Java Tricks
 
-Intro: Diese Code Beispiele sind frei von mir erfunden. Wenn ihr einen dieser Fehler gemacht habt, nehmt es mit Humor und lernt draus. Ich selber bin zum Beispiel vor nicht allzu langer Zeit auf 3) hereingefallen.
+Intro: Diese Code Beispiele sind frei erfunden. Wenn ihr einen dieser Fehler gemacht habt, nehmt es mit Humor und lernt draus. Ich selber bin zum Beispiel vor nicht allzu langer Zeit auf 3) hereingefallen.
 
 #### 1) Ist das C oder Java?
 
@@ -65,7 +65,7 @@ Was soll ich dazu sagen?
 public void finish(Flightrecorder fl, BeaconConnection cn, Beacon cur, Beacon dest){
     /*if we came through a wormhole arrival and departure already have been 
     recorded, so we must not do that again*/
-    if (!cn.type() == ConnectionType.WORMHOLE)
+    if (!(cn.type() == ConnectionType.WORMHOLE))
     	fl.recordDeparture(cur);
     	fl.recordArrival(dest);
 }
@@ -89,7 +89,18 @@ while(!isResourceFree()) {
 ```
 
 Diese famose Konstruktion wird Spin-Lock genannt und ist eine Form von busy-waiting.
-Genauso wie bei dem verlinkten Song handelt es sich hierbei um eine Verschwendung von kostbaren Ressourcen und CPU-Zeit.
+Genauso wie bei dem verlinkten Song handelt es sich hierbei fast immer um eine Verschwendung von kostbaren Ressourcen und CPU-Zeit.
+
+Das lässt sich dann wie folgt mit Trick 7) kombinieren:
+```Java
+// Wait until the resource is free
+boolean stop = isResourceFree();
+// if-Block using stop as condition
+while(!stop) {
+}
+```
+*Ahhhh! Hilfe! Mach es weg!*
+Das hier läuft in Wirklichkeit entweder durch, oder landet in einer Endlosschleife.
 
 #### 10) Try this one simple trick to fix your Deadlocks
 
@@ -101,7 +112,6 @@ class MagicThread extends Thread {
     }
 }
 ```
-Im obigen Beispiel für einen `MagicThread` wurde die Methode `.start()` aus `Thread` überschrieben. Wenn `Thread` nur wie im gezeigten `MagicThread` verwendet wird, kann trivialerweise kein Deadlock entstehen* Der Beweis ist dem Leser überlassen. Als Lektüre hierfür bietet sich der [Sourcecode einer beliebigen JVM an]
-(https://hg.openjdk.java.net/jdk/jdk13/file/0368f3a073a9/src/java.base/share/classes/java/lang/Thread.java#l781).
+Im obigen Beispiel für einen `MagicThread` wurde die Methode `.start()` aus `Thread` überschrieben. Wenn `Thread` nur wie im gezeigten `MagicThread` verwendet wird, kann trivialerweise kein Deadlock entstehen* Der Beweis ist dem Leser überlassen. Als Lektüre hierfür bietet sich der [Sourcecode einer beliebigen JVM an](https://hg.openjdk.java.net/jdk/jdk13/file/0368f3a073a9/src/java.base/share/classes/java/lang/Thread.java#l781).
 
 <sup><sup>*(Ein Nachteil ist lediglich die sequentiellen Ausführung.)</sup></sup>
