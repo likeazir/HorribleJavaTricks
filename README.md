@@ -1,6 +1,7 @@
 ## Horrible Java Tricks
 
-Intro: Diese Code Beispiele sind frei erfunden. Wenn ihr einen dieser Fehler gemacht habt, nehmt es mit Humor und lernt draus. Ich selber bin zum Beispiel vor nicht allzu langer Zeit auf 3) hereingefallen.
+#### Intro
+Diese Code Beispiele sind frei erfunden. Wenn ihr einen dieser Fehler gemacht habt, nehmt es mit Humor und lernt draus. Ich selber bin zum Beispiel vor nicht allzu langer Zeit auf 3) hereingefallen.
 
 #### 1) Ist das C oder Java?
 
@@ -74,7 +75,7 @@ public void finish(Flightrecorder fl, BeaconConnection cn, Beacon cur, Beacon de
 
 Natürlich wird `fl.recordArrival(dest)` immer aufgerufen. Lässt sich auf beliebige Kommentare übertragen. Besonders tödlich im Zusammenhang mit dem Schließen von Netzwerkverbindungen oder Multithreading.
 
-#### 8) Improvise. Adapt. Overcome
+#### 8) Improvise. Adapt. Overcome.
 
 Da es bekanntlich keine "echten" globale Variablen in Java gibt, kann man static abusen. Am besten alles static setzen, so braucht man keine Instanzen der Objekte erstellen. Diese komische Objektorientierung sorgt sowieso nur für Verwirrung.
 
