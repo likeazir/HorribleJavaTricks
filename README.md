@@ -124,9 +124,9 @@ Wer kennt es nicht, man möchte ein Problem mit einem Stream lösen, und plötzl
 Leider muss man dafür einen lästigen try-catch-Block schreiben. Dilletanten würden an dieser Stelle einfach den Stacktrace printen, oder eine unchecked Exception weiterwerfen. 
 Nicht so Mr. Felix Hohenadel, der vor dem Problem stand, dass die erzeugten checked Exceptions - laut Aufgabenstellung - an den Aufrufer weitergeworfen werden *müssen*.
 
-Dafür ist folgender Exception Handler vorgesehen. 
+Dafür ist folgende Methode vorgesehen. 
 ```Java
-private static <E extends Throwable> void ExceptionHandler(Throwable t) throws E {
+private static <E extends Throwable> void exceptionHandler(Throwable t) throws E {
     throw (E) t;
 }
 ```
