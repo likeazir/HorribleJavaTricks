@@ -121,7 +121,7 @@ Im obigen Beispiel für einen `MagicThread` wurde die Methode `.start()` aus `Th
 #### 11) Uncheckify all your Exceptions
 
 Wer kennt es nicht, man möchte ein Problem mit einem Stream lösen, und plötzlich muss man sich um checked Exceptions kümmern. 
-Blöderweise kann man bei Streams auch nicht deklarieren, dass sie weitergereicht werden, sondern muss einen lästigen try-catch-Block schreiben. Dilletanten würden an dieser Stelle einfach den Stacktrace printen, oder eine unchecked Exception weiterwerfen. 
+Leider muss man dafür einen lästigen try-catch-Block schreiben. Dilletanten würden an dieser Stelle einfach den Stacktrace printen, oder eine unchecked Exception weiterwerfen. 
 Nicht so Mr. Felix Hohenadel, der vor dem Problem stand, dass die erzeugten checked Exceptions - laut Aufgabenstellung - an den Aufrufer weitergeworfen werden *müssen*.
 
 Dafür ist folgender Exception Handler vorgesehen. 
