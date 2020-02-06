@@ -74,6 +74,7 @@ public void finish(Flightrecorder fl, BeaconConnection cn, Beacon cur, Beacon de
 ```
 
 Natürlich wird `fl.recordArrival(dest)` immer aufgerufen. Lässt sich auf beliebige Kommentare übertragen. Besonders tödlich im Zusammenhang mit dem Schließen von Netzwerkverbindungen oder Multithreading.
+Eine besonders großes Problem für leichtgläubige Tutoren. Wo ist eigentlich Punkt 6?
 
 #### 8) Improvise. Adapt. Overcome.
 
@@ -116,3 +117,32 @@ class MagicThread extends Thread {
 Im obigen Beispiel für einen `MagicThread` wurde die Methode `.start()` aus `Thread` überschrieben. Wenn `Thread` nur wie im gezeigten `MagicThread` verwendet wird, kann trivialerweise kein Deadlock entstehen* Der Beweis ist dem Leser überlassen. Als Lektüre hierfür bietet sich der [Sourcecode einer beliebigen JVM an](https://hg.openjdk.java.net/jdk/jdk13/file/0368f3a073a9/src/java.base/share/classes/java/lang/Thread.java#l781).
 
 <sup><sup>*(Ein Nachteil ist lediglich die sequentiellen Ausführung.)</sup></sup>
+
+#### 11) Uncheckify all your Exceptions
+
+Wer kennt es nicht, man möchte ein Problem mit einem Stream lösen, und plötzlich muss man sich um checked Exceptions kümmern. 
+Blöderweise kann man bei Streams auch nicht deklarieren, dass sie weitergereicht werden, sondern muss einen lästigen try-catch-Block schreiben. Dilletanten würden an dieser Stelle einfach den Stacktrace printen, oder eine unchecked Exception weiterwerfen. 
+Nicht so Mr. Felix Hohenadel, der vor dem Problem stand, dass die erzeugten checked Exceptions - laut Aufgabenstellung - an den Aufrufer weitergeworfen werden *müssen*.
+
+Dafür ist folgender Exception Handler vorgesehen. 
+```Java
+private static <E extends Throwable> void ExceptionHandler(Throwable t) throws E {
+    throw (E) t;
+}
+```
+Dieser wirft die übergebene Exception noch einmal - allerdings mit dem generischen Typen E, der von Exception erbt. Damit wäre der Compiler überlistet. Was ist aber mit der JVM? Dank Type Erasure funktioniert es auch zur Runtime.
+Angewandt sieht das ganze dann so aus:
+
+```Java
+public void foo() {
+    bar.stream().map(
+        x -> {
+            try {
+                throw new Exception();
+            } catch (Exception e) {
+                ExceptionHandler(e);
+            }
+            return x;
+        })....
+```
+
